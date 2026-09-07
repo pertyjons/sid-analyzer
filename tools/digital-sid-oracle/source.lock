@@ -1,0 +1,14 @@
+schema_version=1
+engine=libresidfp
+repository_url=https://github.com/libsidplayfp/libresidfp
+version=1.1.2
+tag=v1.1.2
+revision=a5cd8f2486d627c40ea8c7c7a25827db73837002
+archive_url=https://github.com/libsidplayfp/libresidfp/releases/download/v1.1.2/libresidfp-1.1.2.tar.gz
+archive_sha256=a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719
+source_directory=libresidfp-1.1.2
+compiler_id=16.1.1
+library_cxxflags=-O2
+library_cppflags=<empty>
+library_ldflags=<empty>
+generator_cxxflags=-std=c++23 -O2

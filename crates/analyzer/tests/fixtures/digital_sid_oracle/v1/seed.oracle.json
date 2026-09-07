@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "reset_mos6581",
+      "description": "libresidfp state immediately after model selection and reset.",
+      "sid_model": "mos6581",
+      "operations": [
+        {
+          "kind": "observe",
+          "sequence": 0,
+          "cycle": 0,
+          "observation": "reset"
+        }
+      ],
+      "observations": [
+        {
+          "id": "reset",
+          "cycle": 0,
+          "values": {
+            "public.env3": 0,
+            "public.osc3": 0,
+            "voices.1.accumulator": 5592405,
+            "voices.1.envelope.gate": false,
+            "voices.1.envelope.level": 170,
+            "voices.1.envelope.phase": "release",
+            "voices.1.shift_register": 4194303,
+            "voices.2.accumulator": 5592405,
+            "voices.2.envelope.gate": false,
+            "voices.2.envelope.level": 170,
+            "voices.2.envelope.phase": "release",
+            "voices.2.shift_register": 4194303,
+            "voices.3.accumulator": 5592405,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.level": 170,
+            "voices.3.envelope.phase": "release",
+            "voices.3.shift_register": 4194303
+          }
+        }
+      ]
+    },
+    {
+      "id": "reset_mos8580",
+      "description": "libresidfp state immediately after model selection and reset.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "observe",
+          "sequence": 0,
+          "cycle": 0,
+          "observation": "reset"
+        }
+      ],
+      "observations": [
+        {
+          "id": "reset",
+          "cycle": 0,
+          "values": {
+            "public.env3": 0,
+            "public.osc3": 0,
+            "voices.1.accumulator": 5592405,
+            "voices.1.envelope.gate": false,
+            "voices.1.envelope.level": 170,
+            "voices.1.envelope.phase": "release",
+            "voices.1.shift_register": 4194303,
+            "voices.2.accumulator": 5592405,
+            "voices.2.envelope.gate": false,
+            "voices.2.envelope.level": 170,
+            "voices.2.envelope.phase": "release",
+            "voices.2.shift_register": 4194303,
+            "voices.3.accumulator": 5592405,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.level": 170,
+            "voices.3.envelope.phase": "release",
+            "voices.3.shift_register": 4194303
+          }
+        }
+      ]
+    }
+  ]
+}

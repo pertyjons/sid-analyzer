@@ -1,0 +1,458 @@
+{
+  "schema_version": 2,
+  "feature_config": {
+    "version": 3,
+    "fft_size": 8192
+  },
+  "budgets": {
+    "voice_tonal_strict": {
+      "maximum_rms_error": 0.05,
+      "maximum_peak_error": 0.1,
+      "maximum_pitch_error": 10.0,
+      "maximum_log_spectral_distance": 6.0,
+      "maximum_centroid_error": 250.0,
+      "maximum_rolloff_error": 500.0,
+      "maximum_flatness_error": 0.15,
+      "maximum_zero_crossing_error": 0.05
+    },
+    "6581_low_cutoff_leak": {
+      "maximum_rms_error": 0.14,
+      "maximum_peak_error": 0.05,
+      "maximum_pitch_error": 10.0,
+      "maximum_log_spectral_distance": 10.0,
+      "maximum_centroid_error": 20.0,
+      "maximum_rolloff_error": 150.0,
+      "maximum_flatness_error": 0.001,
+      "maximum_zero_crossing_error": 0.01
+    },
+    "6581_pulse_saw_silence_floor": {
+      "maximum_rms_error": 0.001,
+      "maximum_peak_error": 0.001,
+      "maximum_pitch_error": 22050.0,
+      "maximum_log_spectral_distance": 160.0,
+      "maximum_centroid_error": 22050.0,
+      "maximum_rolloff_error": 22050.0,
+      "maximum_flatness_error": 0.2,
+      "maximum_zero_crossing_error": 0.01
+    },
+    "6581_triangle_saw_calibration_target": {
+      "maximum_rms_error": 0.000001,
+      "maximum_peak_error": 0.000001,
+      "maximum_level_error_db": 0.001,
+      "maximum_pitch_error": 0.001,
+      "maximum_log_spectral_distance": 0.001,
+      "maximum_gain_normalized_log_spectral_distance": 0.001,
+      "maximum_centroid_error": 0.001,
+      "maximum_rolloff_error": 0.001,
+      "maximum_flatness_error": 0.000001,
+      "maximum_zero_crossing_error": 0.000001
+    },
+    "6581_triangle_saw_level": {
+      "maximum_rms_error": 1.0,
+      "maximum_peak_error": 1.0,
+      "maximum_level_error_db": 3.0,
+      "maximum_pitch_error": 22050.0,
+      "maximum_log_spectral_distance": 200.0,
+      "maximum_centroid_error": 22050.0,
+      "maximum_rolloff_error": 22050.0,
+      "maximum_flatness_error": 1.0,
+      "maximum_zero_crossing_error": 1.0
+    },
+    "6581_triangle_saw_shape": {
+      "maximum_rms_error": 1.0,
+      "maximum_peak_error": 1.0,
+      "maximum_pitch_error": 22050.0,
+      "maximum_log_spectral_distance": 200.0,
+      "maximum_gain_normalized_log_spectral_distance": 2.0,
+      "maximum_centroid_error": 22050.0,
+      "maximum_rolloff_error": 22050.0,
+      "maximum_flatness_error": 1.0,
+      "maximum_zero_crossing_error": 1.0
+    }
+  },
+  "fixtures": [
+    {
+      "name": "synthetic_tonal_voice",
+      "reference": {
+        "kind": "profile",
+        "path": "reference.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "known_good",
+          "source": {
+            "kind": "profile",
+            "path": "candidate-good.profile.json"
+          },
+          "budget": "voice_tonal_strict",
+          "expected": "accept"
+        },
+        {
+          "name": "known_bad",
+          "source": {
+            "kind": "profile",
+            "path": "candidate-bad.profile.json"
+          },
+          "budget": "voice_tonal_strict",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic tonal profiles committed with fixture schema v2."
+      }
+    },
+    {
+      "name": "6581_low_cutoff_filter_leak_fc0200",
+      "reference": {
+        "kind": "profile",
+        "path": "filter-low-reference.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "bounded_dry_leak",
+          "source": {
+            "kind": "profile",
+            "path": "filter-low-leak.profile.json"
+          },
+          "budget": "6581_low_cutoff_leak",
+          "expected": "accept"
+        },
+        {
+          "name": "sealed_lowpass",
+          "source": {
+            "kind": "profile",
+            "path": "filter-low-sealed.profile.json"
+          },
+          "budget": "6581_low_cutoff_leak",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic low-cutoff 6581 filter profiles committed with fixture schema v2."
+      }
+    },
+    {
+      "name": "c61_a1_6581_pulse_saw_floor_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c61-a1-reference-floor.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "total_bus_collapse",
+          "source": {
+            "kind": "profile",
+            "path": "c61-zero.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "accept"
+        },
+        {
+          "name": "old_one_code_blip",
+          "source": {
+            "kind": "profile",
+            "path": "c61-a1-old-residue.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 pulse+saw silence-floor calibration at A1."
+      }
+    },
+    {
+      "name": "c61_a2_6581_pulse_saw_floor_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c61-a2-reference-floor.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "total_bus_collapse",
+          "source": {
+            "kind": "profile",
+            "path": "c61-zero.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "accept"
+        },
+        {
+          "name": "old_one_code_blip",
+          "source": {
+            "kind": "profile",
+            "path": "c61-a2-old-residue.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 pulse+saw silence-floor calibration at A2."
+      }
+    },
+    {
+      "name": "c61_a4_6581_pulse_saw_floor_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c61-a4-reference-floor.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "total_bus_collapse",
+          "source": {
+            "kind": "profile",
+            "path": "c61-zero.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "accept"
+        },
+        {
+          "name": "old_one_code_blip",
+          "source": {
+            "kind": "profile",
+            "path": "c61-a4-old-residue.profile.json"
+          },
+          "budget": "6581_pulse_saw_silence_floor",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 pulse+saw silence-floor calibration at A4."
+      }
+    },
+    {
+      "name": "c31_a1_6581_triangle_saw_calibration_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c31-a1-reference.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "calibration_target",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-reference.profile.json"
+          },
+          "budget": "6581_triangle_saw_calibration_target",
+          "expected": "accept"
+        },
+        {
+          "name": "pw0200_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0200_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a1-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 triangle+saw calibration at A1; pulse-width controls verify that an inactive pulse bit does not affect the result."
+      }
+    },
+    {
+      "name": "c31_a2_6581_triangle_saw_calibration_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c31-a2-reference.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "calibration_target",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-reference.profile.json"
+          },
+          "budget": "6581_triangle_saw_calibration_target",
+          "expected": "accept"
+        },
+        {
+          "name": "pw0200_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0200_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a2-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 triangle+saw calibration at A2; pulse-width controls verify that an inactive pulse bit does not affect the result."
+      }
+    },
+    {
+      "name": "c31_a4_6581_triangle_saw_calibration_1_2s",
+      "reference": {
+        "kind": "profile",
+        "path": "c31-a4-reference.profile.json"
+      },
+      "candidates": [
+        {
+          "name": "calibration_target",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-reference.profile.json"
+          },
+          "budget": "6581_triangle_saw_calibration_target",
+          "expected": "accept"
+        },
+        {
+          "name": "pw0200_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0200_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0800_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_level",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_level",
+          "expected": "reject"
+        },
+        {
+          "name": "pw0e00_shape",
+          "source": {
+            "kind": "profile",
+            "path": "c31-a4-pw0800-export.profile.json"
+          },
+          "budget": "6581_triangle_saw_shape",
+          "expected": "reject"
+        }
+      ],
+      "provenance": {
+        "kind": "generated_profile",
+        "recipe": "Deterministic synthetic 6581 triangle+saw calibration at A4; pulse-width controls verify that an inactive pulse bit does not affect the result."
+      }
+    }
+  ]
+}

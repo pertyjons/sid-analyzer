@@ -1,0 +1,8 @@
+accepted = [
+    "GPL-3.0-or-later",
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "Unicode-3.0",
+    "Unlicense",
+]

@@ -1,0 +1,31 @@
+{
+  "feature_config": {
+    "version": 3,
+    "fft_size": 8192
+  },
+  "sample_rate": 44100,
+  "samples": 44100,
+  "peak": 0.82,
+  "rms": 0.41,
+  "onset": 104,
+  "peak_at": 205,
+  "release_end": 39980,
+  "fundamental": 442.0,
+  "fundamental_confidence": 0.94,
+  "spectral_centroid": 1230.0,
+  "spectral_rolloff": 3280.0,
+  "spectral_flatness": 0.13,
+  "zero_crossing_rate": 0.085,
+  "transient_density": 0.01,
+  "amplitude_envelopes": [],
+  "band_powers": [0.98, 0.51, 0.19, 0.052],
+  "low_rate_amplitude_modulation": 5.0,
+  "pitch_trajectory": [],
+  "brightness_trajectory": [],
+  "harmonic_noise_balance": {
+    "harmonic_power": 0.88,
+    "noise_power": 0.12
+  },
+  "low_rate_pitch_modulation": 5.0,
+  "low_rate_brightness_modulation": null
+}

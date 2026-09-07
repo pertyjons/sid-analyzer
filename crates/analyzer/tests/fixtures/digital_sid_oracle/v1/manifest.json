@@ -1,0 +1,1224 @@
+{
+  "schema_version": 1,
+  "divergences": {},
+  "rules": [
+    {
+      "case": "clock_then_write_smoke",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "clock_then_write_smoke",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "clock_then_write_smoke",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "clock_then_write_smoke",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "clock_then_write_smoke",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos6581",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos6581",
+      "field": "voices.3.noise_poisoned",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos6581",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos8580",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos8580",
+      "field": "voices.3.noise_poisoned",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "combined_noise_mos8580",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_00",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_00",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_00",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_00",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_01",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_01",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_01",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_01",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_02",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_02",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_02",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_02",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_03",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_03",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_03",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_03",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_04",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_04",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_04",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_04",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_05",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_05",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_05",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_05",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_06",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_06",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_06",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_06",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_07",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_07",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_07",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_07",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_08",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_08",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_08",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_08",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_09",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_09",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_09",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_09",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_10",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_10",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_10",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_10",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_11",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_11",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_11",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_11",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_12",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_12",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_12",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_12",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_13",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_13",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_13",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_13",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_14",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_14",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_14",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_14",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_15",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_15",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_15",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_rate_15",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.exponential_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.exponential_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.hold_zero",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_attack_to_release",
+      "field": "voices.3.envelope.rate_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.exponential_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.exponential_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.hold_zero",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_transitions",
+      "field": "voices.3.envelope.rate_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "live_read_test_sid_window",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "live_read_test_sid_window",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_frequency_and_saw",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_frequency_and_saw",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_frequency_and_saw",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_pulse_boundary",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_pulse_boundary",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_waveforms",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "oscillator_waveforms",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.1.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.1.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.1.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.1.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.2.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.2.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.2.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.2.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos6581",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.1.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.1.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.1.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.1.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.2.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.2.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.2.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.2.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "reset_mos8580",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_enable_boundary",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_noise_same_cycle",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_noise_same_cycle",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_noise_same_cycle",
+      "field": "voices.2.noise_clock_count",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_simultaneous_edges",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_simultaneous_edges",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_simultaneous_edges",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_1_from_voice_3",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_1_from_voice_3",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_2_from_voice_1",
+      "field": "voices.1.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_2_from_voice_1",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_3_from_voice_2",
+      "field": "voices.2.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "sync_voice_3_from_voice_2",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos6581",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos6581",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos6581",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos6581",
+      "field": "voices.3.test_fill_at",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos8580",
+      "field": "public.osc3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos8580",
+      "field": "voices.3.accumulator",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos8580",
+      "field": "voices.3.shift_register",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "test_noise_mos8580",
+      "field": "voices.3.test_fill_at",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_adsr_delay_wrap",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_adsr_delay_wrap",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_adsr_delay_wrap",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_adsr_delay_wrap",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_adsr_delay_wrap",
+      "field": "voices.3.envelope.rate_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_ad_sr_gate",
+      "field": "voices.3.envelope.rate_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "public.env3",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "voices.3.envelope.gate",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "voices.3.envelope.level",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "voices.3.envelope.phase",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "voices.3.envelope.rate_counter",
+      "policy": {
+        "disposition": "must_match"
+      }
+    },
+    {
+      "case": "envelope_same_cycle_gate_ad_sr",
+      "field": "voices.3.envelope.rate_period",
+      "policy": {
+        "disposition": "must_match"
+      }
+    }
+  ]
+}

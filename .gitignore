@@ -1,0 +1,10 @@
+/target
+/.idea
+/data
+/.claude
+/exports/
+/assets/music/
+/assets/Songlengths.md5
+assets/fixtures/sound-engine-poc/*.sid
+assets/fixtures/sound-engine-poc/*.wav
+__pycache__/

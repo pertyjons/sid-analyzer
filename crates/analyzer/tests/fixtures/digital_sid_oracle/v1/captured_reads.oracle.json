@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "live_read_test_sid_window",
+      "description": "Ordered OSC3 and ENV3 reads captured by captured_read_fixture_matches_live_read_psid_capture.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 2,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 8,
+          "register": 15,
+          "value": 32
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 14,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 20,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 26,
+          "register": 18,
+          "value": 33
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 19656,
+          "observation": "first_osc3_read"
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 19660,
+          "observation": "first_env3_read"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 39312,
+          "observation": "second_osc3_read"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 39316,
+          "observation": "second_env3_read"
+        }
+      ],
+      "observations": [
+        {
+          "id": "first_osc3_read",
+          "cycle": 19656,
+          "values": {
+            "public.osc3": 57
+          }
+        },
+        {
+          "id": "first_env3_read",
+          "cycle": 19660,
+          "values": {
+            "public.env3": 255
+          }
+        },
+        {
+          "id": "second_osc3_read",
+          "cycle": 39312,
+          "values": {
+            "public.osc3": 31
+          }
+        },
+        {
+          "id": "second_env3_read",
+          "cycle": 39316,
+          "values": {
+            "public.env3": 255
+          }
+        }
+      ]
+    }
+  ]
+}

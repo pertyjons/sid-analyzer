@@ -1,0 +1,710 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "sync_enable_boundary",
+      "description": "Sync disabled immediately before one source edge and enabled immediately before the next.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 0,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 1,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 4,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 18,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 4,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 18,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 129,
+          "observation": "before_disabled_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 130,
+          "observation": "disabled_at_edge"
+        },
+        {
+          "kind": "write",
+          "sequence": 10,
+          "cycle": 385,
+          "register": 4,
+          "value": 2
+        },
+        {
+          "kind": "observe",
+          "sequence": 11,
+          "cycle": 385,
+          "observation": "enabled_before_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 386,
+          "observation": "enabled_edge"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_disabled_edge",
+          "cycle": 129,
+          "values": {
+            "voices.1.accumulator": 128
+          }
+        },
+        {
+          "id": "disabled_at_edge",
+          "cycle": 130,
+          "values": {
+            "voices.1.accumulator": 129
+          }
+        },
+        {
+          "id": "enabled_before_edge",
+          "cycle": 385,
+          "values": {
+            "voices.1.accumulator": 384
+          }
+        },
+        {
+          "id": "enabled_edge",
+          "cycle": 386,
+          "values": {
+            "voices.1.accumulator": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync_noise_same_cycle",
+      "description": "The destination noise LFSR clocks from its natural bit-19 rise before hard sync resets it.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 7,
+          "value": 225
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 8,
+          "value": 15
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 11,
+          "value": 138
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 0,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 1,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 4,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 11,
+          "value": 130
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 4,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 129,
+          "observation": "before_joint_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 130,
+          "observation": "joint_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 131,
+          "observation": "after_joint_edge"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_joint_edge",
+          "cycle": 129,
+          "values": {
+            "voices.1.accumulator": 8388480,
+            "voices.2.accumulator": 520320,
+            "voices.2.noise_clock_count": 1
+          }
+        },
+        {
+          "id": "joint_edge",
+          "cycle": 130,
+          "values": {
+            "voices.1.accumulator": 8454015,
+            "voices.2.accumulator": 0,
+            "voices.2.noise_clock_count": 2
+          }
+        },
+        {
+          "id": "after_joint_edge",
+          "cycle": 131,
+          "values": {
+            "voices.1.accumulator": 8519550,
+            "voices.2.accumulator": 4065,
+            "voices.2.noise_clock_count": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync_simultaneous_edges",
+      "description": "All sources cross the MSB together, exercising source-reset suppression.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 0,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 1,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 4,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 7,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 8,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 11,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 8,
+          "cycle": 0,
+          "register": 18,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 9,
+          "cycle": 1,
+          "register": 4,
+          "value": 34
+        },
+        {
+          "kind": "write",
+          "sequence": 10,
+          "cycle": 1,
+          "register": 11,
+          "value": 34
+        },
+        {
+          "kind": "write",
+          "sequence": 11,
+          "cycle": 1,
+          "register": 18,
+          "value": 34
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 129,
+          "observation": "before_edges"
+        },
+        {
+          "kind": "observe",
+          "sequence": 13,
+          "cycle": 130,
+          "observation": "simultaneous_edges"
+        },
+        {
+          "kind": "observe",
+          "sequence": 14,
+          "cycle": 131,
+          "observation": "after_edges"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_edges",
+          "cycle": 129,
+          "values": {
+            "voices.1.accumulator": 8388480,
+            "voices.2.accumulator": 8388480,
+            "voices.3.accumulator": 8388480
+          }
+        },
+        {
+          "id": "simultaneous_edges",
+          "cycle": 130,
+          "values": {
+            "voices.1.accumulator": 8454015,
+            "voices.2.accumulator": 8454015,
+            "voices.3.accumulator": 8454015
+          }
+        },
+        {
+          "id": "after_edges",
+          "cycle": 131,
+          "values": {
+            "voices.1.accumulator": 8519550,
+            "voices.2.accumulator": 8519550,
+            "voices.3.accumulator": 8519550
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync_voice_1_from_voice_3",
+      "description": "Hard-sync route at the source accumulator MSB rising edge.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 0,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 1,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 4,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 18,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 4,
+          "value": 2
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 18,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 129,
+          "observation": "before_source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 130,
+          "observation": "source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 131,
+          "observation": "after_source_edge"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_source_edge",
+          "cycle": 129,
+          "values": {
+            "voices.1.accumulator": 128,
+            "voices.3.accumulator": 8388480
+          }
+        },
+        {
+          "id": "source_edge",
+          "cycle": 130,
+          "values": {
+            "voices.1.accumulator": 0,
+            "voices.3.accumulator": 8454015
+          }
+        },
+        {
+          "id": "after_source_edge",
+          "cycle": 131,
+          "values": {
+            "voices.1.accumulator": 1,
+            "voices.3.accumulator": 8519550
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync_voice_2_from_voice_1",
+      "description": "Hard-sync route at the source accumulator MSB rising edge.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 7,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 8,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 0,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 1,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 11,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 4,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 11,
+          "value": 2
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 4,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 129,
+          "observation": "before_source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 130,
+          "observation": "source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 131,
+          "observation": "after_source_edge"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_source_edge",
+          "cycle": 129,
+          "values": {
+            "voices.1.accumulator": 8388480,
+            "voices.2.accumulator": 128
+          }
+        },
+        {
+          "id": "source_edge",
+          "cycle": 130,
+          "values": {
+            "voices.1.accumulator": 8454015,
+            "voices.2.accumulator": 0
+          }
+        },
+        {
+          "id": "after_source_edge",
+          "cycle": 131,
+          "values": {
+            "voices.1.accumulator": 8519550,
+            "voices.2.accumulator": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "sync_voice_3_from_voice_2",
+      "description": "Hard-sync route at the source accumulator MSB rising edge.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 14,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 15,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 7,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 8,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 18,
+          "value": 10
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 11,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 18,
+          "value": 2
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 11,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 129,
+          "observation": "before_source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 130,
+          "observation": "source_edge"
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 131,
+          "observation": "after_source_edge"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_source_edge",
+          "cycle": 129,
+          "values": {
+            "voices.2.accumulator": 8388480,
+            "voices.3.accumulator": 128
+          }
+        },
+        {
+          "id": "source_edge",
+          "cycle": 130,
+          "values": {
+            "voices.2.accumulator": 8454015,
+            "voices.3.accumulator": 0
+          }
+        },
+        {
+          "id": "after_source_edge",
+          "cycle": 131,
+          "values": {
+            "voices.2.accumulator": 8519550,
+            "voices.3.accumulator": 1
+          }
+        }
+      ]
+    }
+  ]
+}

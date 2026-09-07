@@ -1,0 +1,606 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "oscillator_frequency_and_saw",
+      "description": "Accumulator reset, frequency boundaries, 24-bit wrap, and saw OSC3 trajectory.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 18,
+          "value": 40
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 0,
+          "observation": "test_set"
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 1,
+          "register": 18,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 1,
+          "observation": "test_clear"
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 2,
+          "observation": "first_increment"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 17,
+          "observation": "saw_16_cycles"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 130,
+          "observation": "saw_msb_crossing"
+        },
+        {
+          "kind": "write",
+          "sequence": 9,
+          "cycle": 130,
+          "register": 14,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 131,
+          "observation": "frequency_low_rewrite"
+        },
+        {
+          "kind": "write",
+          "sequence": 11,
+          "cycle": 131,
+          "register": 15,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 132,
+          "observation": "frequency_high_rewrite"
+        },
+        {
+          "kind": "observe",
+          "sequence": 13,
+          "cycle": 20000000,
+          "observation": "large_delta_wrap"
+        },
+        {
+          "kind": "write",
+          "sequence": 14,
+          "cycle": 20000000,
+          "register": 14,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 15,
+          "cycle": 20000010,
+          "observation": "zero_frequency"
+        }
+      ],
+      "observations": [
+        {
+          "id": "test_set",
+          "cycle": 0,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303
+          }
+        },
+        {
+          "id": "test_clear",
+          "cycle": 1,
+          "values": {
+            "public.osc3": 85,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 2097151
+          }
+        },
+        {
+          "id": "first_increment",
+          "cycle": 2,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 65535,
+            "voices.3.shift_register": 2097151
+          }
+        },
+        {
+          "id": "saw_16_cycles",
+          "cycle": 17,
+          "values": {
+            "public.osc3": 14,
+            "voices.3.accumulator": 1048560,
+            "voices.3.shift_register": 1048575
+          }
+        },
+        {
+          "id": "saw_msb_crossing",
+          "cycle": 130,
+          "values": {
+            "public.osc3": 127,
+            "voices.3.accumulator": 8454015,
+            "voices.3.shift_register": 8191
+          }
+        },
+        {
+          "id": "frequency_low_rewrite",
+          "cycle": 131,
+          "values": {
+            "public.osc3": 128,
+            "voices.3.accumulator": 8519296,
+            "voices.3.shift_register": 8191
+          }
+        },
+        {
+          "id": "frequency_high_rewrite",
+          "cycle": 132,
+          "values": {
+            "public.osc3": 129,
+            "voices.3.accumulator": 8519297,
+            "voices.3.shift_register": 8191
+          }
+        },
+        {
+          "id": "large_delta_wrap",
+          "cycle": 20000000,
+          "values": {
+            "public.osc3": 179,
+            "voices.3.accumulator": 11741949,
+            "voices.3.shift_register": 126976
+          }
+        },
+        {
+          "id": "zero_frequency",
+          "cycle": 20000010,
+          "values": {
+            "public.osc3": 179,
+            "voices.3.accumulator": 11741949,
+            "voices.3.shift_register": 126976
+          }
+        }
+      ]
+    },
+    {
+      "id": "oscillator_pulse_boundary",
+      "description": "Pulse output immediately below, at, and above its programmed width.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 14,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 15,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 16,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 17,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 18,
+          "value": 72
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 1,
+          "register": 18,
+          "value": 64
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 4096,
+          "observation": "below_width"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 4097,
+          "observation": "at_width"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 4098,
+          "observation": "above_width"
+        },
+        {
+          "kind": "write",
+          "sequence": 9,
+          "cycle": 4098,
+          "register": 18,
+          "value": 72
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 4098,
+          "observation": "test_forces_high"
+        }
+      ],
+      "observations": [
+        {
+          "id": "below_width",
+          "cycle": 4096,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 4095
+          }
+        },
+        {
+          "id": "at_width",
+          "cycle": 4097,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 4096
+          }
+        },
+        {
+          "id": "above_width",
+          "cycle": 4098,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 4097
+          }
+        },
+        {
+          "id": "test_forces_high",
+          "cycle": 4098,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "oscillator_waveforms",
+      "description": "Waveform zero, triangle halves, saw, pulse boundaries, ring modulation, and noise.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 7,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 8,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 11,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 0,
+          "register": 18,
+          "value": 8
+        },
+        {
+          "kind": "write",
+          "sequence": 6,
+          "cycle": 1,
+          "register": 11,
+          "value": 32
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 1,
+          "register": 18,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 2,
+          "observation": "waveform_zero"
+        },
+        {
+          "kind": "write",
+          "sequence": 9,
+          "cycle": 2,
+          "register": 18,
+          "value": 16
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 3,
+          "observation": "triangle_lower"
+        },
+        {
+          "kind": "write",
+          "sequence": 11,
+          "cycle": 3,
+          "register": 18,
+          "value": 20
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 4,
+          "observation": "ring_mod_source_clear"
+        },
+        {
+          "kind": "write",
+          "sequence": 13,
+          "cycle": 4,
+          "register": 18,
+          "value": 16
+        },
+        {
+          "kind": "observe",
+          "sequence": 14,
+          "cycle": 132,
+          "observation": "triangle_upper"
+        },
+        {
+          "kind": "write",
+          "sequence": 15,
+          "cycle": 132,
+          "register": 18,
+          "value": 20
+        },
+        {
+          "kind": "observe",
+          "sequence": 16,
+          "cycle": 133,
+          "observation": "ring_mod_source_high"
+        },
+        {
+          "kind": "write",
+          "sequence": 17,
+          "cycle": 133,
+          "register": 18,
+          "value": 32
+        },
+        {
+          "kind": "observe",
+          "sequence": 18,
+          "cycle": 134,
+          "observation": "saw"
+        },
+        {
+          "kind": "write",
+          "sequence": 19,
+          "cycle": 134,
+          "register": 16,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 20,
+          "cycle": 134,
+          "register": 17,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 21,
+          "cycle": 134,
+          "register": 18,
+          "value": 64
+        },
+        {
+          "kind": "observe",
+          "sequence": 22,
+          "cycle": 135,
+          "observation": "pulse_above_width"
+        },
+        {
+          "kind": "write",
+          "sequence": 23,
+          "cycle": 135,
+          "register": 18,
+          "value": 72
+        },
+        {
+          "kind": "observe",
+          "sequence": 24,
+          "cycle": 135,
+          "observation": "pulse_test_forced_high"
+        },
+        {
+          "kind": "write",
+          "sequence": 25,
+          "cycle": 136,
+          "register": 18,
+          "value": 128
+        },
+        {
+          "kind": "observe",
+          "sequence": 26,
+          "cycle": 140,
+          "observation": "noise"
+        },
+        {
+          "kind": "write",
+          "sequence": 27,
+          "cycle": 140,
+          "register": 18,
+          "value": 48
+        },
+        {
+          "kind": "observe",
+          "sequence": 28,
+          "cycle": 141,
+          "observation": "combined_triangle_saw"
+        }
+      ],
+      "observations": [
+        {
+          "id": "waveform_zero",
+          "cycle": 2,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 65535
+          }
+        },
+        {
+          "id": "triangle_lower",
+          "cycle": 3,
+          "values": {
+            "public.osc3": 85,
+            "voices.3.accumulator": 131070
+          }
+        },
+        {
+          "id": "ring_mod_source_clear",
+          "cycle": 4,
+          "values": {
+            "public.osc3": 3,
+            "voices.3.accumulator": 196605
+          }
+        },
+        {
+          "id": "triangle_upper",
+          "cycle": 132,
+          "values": {
+            "public.osc3": 252,
+            "voices.3.accumulator": 8585085
+          }
+        },
+        {
+          "id": "ring_mod_source_high",
+          "cycle": 133,
+          "values": {
+            "public.osc3": 250,
+            "voices.3.accumulator": 8650620
+          }
+        },
+        {
+          "id": "saw",
+          "cycle": 134,
+          "values": {
+            "public.osc3": 248,
+            "voices.3.accumulator": 8716155
+          }
+        },
+        {
+          "id": "pulse_above_width",
+          "cycle": 135,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 8781690
+          }
+        },
+        {
+          "id": "pulse_test_forced_high",
+          "cycle": 135,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 0
+          }
+        },
+        {
+          "id": "noise",
+          "cycle": 140,
+          "values": {
+            "public.osc3": 240,
+            "voices.3.accumulator": 262140
+          }
+        },
+        {
+          "id": "combined_triangle_saw",
+          "cycle": 141,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 327675
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+[package]
+name = "sid-analyzer"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+asset-tests = []
+corpus-scan = ["dep:rusqlite"]
+schema-tests = []
+
+[[test]]
+name = "synth_schema"
+path = "tests/synth_schema.rs"
+required-features = ["schema-tests"]
+
+[[test]]
+name = "composer_census"
+path = "tests/composer_census.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "corpus_baseline"
+path = "tests/corpus_baseline.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "json_export"
+path = "tests/json_export.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "lowering"
+path = "tests/lowering.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "nemesis"
+path = "tests/nemesis.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "patches"
+path = "tests/patches.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "sid_program"
+path = "tests/sid_program.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "synth_arp_processor"
+path = "tests/synth_arp_processor.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "synth_fidelity_budget"
+path = "tests/synth_fidelity_budget.rs"
+required-features = ["asset-tests"]
+
+[[test]]
+name = "synth_structure"
+path = "tests/synth_structure.rs"
+required-features = ["asset-tests"]
+
+[[bin]]
+name = "sid-analyzer"
+path = "src/bin/main.rs"
+
+[[bin]]
+name = "sid-corpus-scan"
+path = "src/bin/sid-corpus-scan.rs"
+required-features = ["corpus-scan"]
+
+[[bin]]
+name = "m7-baseline"
+path = "src/bin/m7-baseline.rs"
+
+[[bin]]
+name = "m7-patches-scan"
+path = "src/bin/m7-patches-scan.rs"
+
+[[bin]]
+name = "sid-hubbard-qualify"
+path = "src/bin/sid-hubbard-qualify.rs"
+
+[[bin]]
+name = "sid-abtest"
+path = "src/bin/sid-abtest.rs"
+
+[dependencies]
+clap.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+encoding_rs.workspace = true
+mos6502.workspace = true
+midly.workspace = true
+md-5.workspace = true
+rusqlite = { workspace = true, optional = true }
+rayon.workspace = true
+walkdir.workspace = true

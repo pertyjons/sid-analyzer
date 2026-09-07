@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "hand-authored-harness-smoke",
+    "repository_url": "not_applicable",
+    "version": "1",
+    "release_tag": "not_applicable",
+    "revision": "334c45b",
+    "source_archive_sha256": "not_applicable",
+    "generator_revision": "slice-0",
+    "compiler": "not_applicable",
+    "build_flags": "not_applicable",
+    "combined_waveforms": "not_applicable"
+  },
+  "cases": [
+    {
+      "id": "clock_then_write_smoke",
+      "description": "A cycle-zero gate write preserves the power-on envelope level and enters Attack through its pipeline.",
+      "sid_model": "mos6581",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 2,
+          "cycle": 0,
+          "observation": "after_gate"
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 8,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 9,
+          "observation": "at_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "after_gate",
+          "cycle": 0,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 170,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 0
+          }
+        },
+        {
+          "id": "before_first_step",
+          "cycle": 8,
+          "values": {
+            "public.env3": 172,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 172,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 6
+          }
+        },
+        {
+          "id": "at_first_step",
+          "cycle": 9,
+          "values": {
+            "public.env3": 172,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 172,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 7
+          }
+        }
+      ]
+    }
+  ]
+}

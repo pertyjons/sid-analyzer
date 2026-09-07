@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "BundleCropRegion": {
+      "description": "Serializable crop region.",
+      "properties": {
+        "end": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "start": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "type": "object"
+    },
+    "BundleLoopRegion": {
+      "description": "Serializable loop region.",
+      "properties": {
+        "crossfade": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "end": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "start": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "crossfade"
+      ],
+      "type": "object"
+    },
+    "BundleSampleEntry": {
+      "description": "Metadata for a single sample in the bundle.",
+      "properties": {
+        "channels": {
+          "description": "Number of channels.",
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "crop": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BundleCropRegion"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Crop region (if set)."
+        },
+        "frame_count": {
+          "description": "Total frames.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "description": "Sample ID (matches the SampleLibrary ID).",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "loop_region": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BundleLoopRegion"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Loop region (if set)."
+        },
+        "name": {
+          "description": "Display name.",
+          "type": "string"
+        },
+        "root_note": {
+          "description": "Root MIDI note (if set).",
+          "format": "uint8",
+          "maximum": 255,
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "sample_rate": {
+          "description": "Sample rate in Hz.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "sample_rate",
+        "channels",
+        "frame_count"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Metadata for all samples in the bundle.",
+  "properties": {
+    "samples": {
+      "description": "Sample metadata entries, keyed by filename (e.g., \"1.wav\").",
+      "items": {
+        "$ref": "#/$defs/BundleSampleEntry"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "samples"
+  ],
+  "title": "BundleMetadata",
+  "type": "object"
+}

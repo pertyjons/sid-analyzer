@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Rust (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: default
+            features: ""
+          - name: corpus-scan
+            features: "--features corpus-scan"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install the repository toolchain
+        run: rustup show active-toolchain
+      - name: Check formatting
+        run: cargo fmt --check
+      - name: Build
+        run: cargo build --workspace --locked ${{ matrix.features }}
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --locked ${{ matrix.features }} -- -D warnings
+      - name: Test
+        run: cargo test --workspace --locked ${{ matrix.features }}
+  schema:
+    name: PTZ JSON Schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install the repository toolchain
+        run: rustup show active-toolchain
+      - name: Install the schema validator
+        run: |
+          python3 -m venv "$RUNNER_TEMP/schema-venv"
+          "$RUNNER_TEMP/schema-venv/bin/python" -m pip install -r tools/schema-validation/requirements.txt
+      - name: Validate synthetic exports
+        run: |
+          cargo clippy --workspace --all-targets --locked --features schema-tests -- -D warnings
+          SID_SCHEMA_PYTHON="$RUNNER_TEMP/schema-venv/bin/python" cargo test --workspace --locked --features schema-tests --test synth_schema

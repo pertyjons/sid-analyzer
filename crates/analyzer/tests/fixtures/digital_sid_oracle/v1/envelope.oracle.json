@@ -1,0 +1,2140 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "envelope_adsr_delay_wrap",
+      "description": "A rate rewrite below the current counter waits for the 15-bit ADSR-delay wrap.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6140,
+          "observation": "before_rate_rewrite"
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 6140,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6140,
+          "observation": "after_rate_rewrite"
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 38814,
+          "observation": "before_wrapped_match"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 38815,
+          "observation": "wrapped_match"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 38816,
+          "observation": "after_wrapped_match"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_rate_rewrite",
+          "cycle": 6140,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 101,
+            "voices.3.envelope.rate_period": 31251
+          }
+        },
+        {
+          "id": "after_rate_rewrite",
+          "cycle": 6140,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 101,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "before_wrapped_match",
+          "cycle": 38814,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 8,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "wrapped_match",
+          "cycle": 38815,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 0,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "after_wrapped_match",
+          "cycle": 38816,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 1,
+            "voices.3.envelope.rate_period": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_00",
+      "description": "Attack rate 0 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6050,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6051,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6052,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6050,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6051,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6052,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_01",
+      "description": "Attack rate 1 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 16
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6073,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6074,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6075,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6073,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6074,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6075,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_02",
+      "description": "Attack rate 2 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 32
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6104,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6105,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6106,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6104,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6105,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6106,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_03",
+      "description": "Attack rate 3 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 48
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6136,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6137,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6138,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6136,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6137,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6138,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_04",
+      "description": "Attack rate 4 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 64
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6190,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6191,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6192,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6190,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6191,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6192,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_05",
+      "description": "Attack rate 5 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 80
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6261,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6262,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6263,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6261,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6262,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6263,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_06",
+      "description": "Attack rate 6 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 96
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6308,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6309,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6310,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6308,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6309,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6310,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_07",
+      "description": "Attack rate 7 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 112
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6354,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6355,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6356,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6354,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6355,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6356,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_08",
+      "description": "Attack rate 8 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 128
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6433,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6434,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6435,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 6433,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 6434,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 6435,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_09",
+      "description": "Attack rate 9 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 144
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 7018,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 7019,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 7020,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 7018,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 7019,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 7020,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_10",
+      "description": "Attack rate 10 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 160
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 7995,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 7996,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 7997,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 7995,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 7996,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 7997,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_11",
+      "description": "Attack rate 11 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 176
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 9167,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 9168,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 9169,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 9167,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 9168,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 9169,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_12",
+      "description": "Attack rate 12 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 192
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 9948,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 9949,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 9950,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 9948,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 9949,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 9950,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_13",
+      "description": "Attack rate 13 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 208
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 17761,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 17762,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 17763,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 17761,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 17762,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 17763,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_14",
+      "description": "Attack rate 14 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 224
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 25573,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 25574,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 25575,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 25573,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 25574,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 25575,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_rate_15",
+      "description": "Attack rate 15 at the first envelope step boundary.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 37292,
+          "observation": "before_first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 37293,
+          "observation": "first_step"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 37294,
+          "observation": "after_first_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "before_first_step",
+          "cycle": 37292,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "first_step",
+          "cycle": 37293,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        },
+        {
+          "id": "after_first_step",
+          "cycle": 37294,
+          "values": {
+            "public.env3": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 2,
+            "voices.3.envelope.phase": "attack"
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_attack_to_release",
+      "description": "Gate-off interrupts Attack directly, enters Release, and reaches zero.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6321,
+          "observation": "attack_before_gate_off"
+        },
+        {
+          "kind": "write",
+          "sequence": 4,
+          "cycle": 6321,
+          "register": 18,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6321,
+          "observation": "gate_off_during_attack"
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 6323,
+          "observation": "release_started"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 10390,
+          "observation": "release_zero"
+        }
+      ],
+      "observations": [
+        {
+          "id": "attack_before_gate_off",
+          "cycle": 6321,
+          "values": {
+            "public.env3": 31,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 8,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 32,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 3,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "gate_off_during_attack",
+          "cycle": 6321,
+          "values": {
+            "public.env3": 31,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 8,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 32,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 3,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "release_started",
+          "cycle": 6323,
+          "values": {
+            "public.env3": 32,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 8,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 32,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 5,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "release_zero",
+          "cycle": 10390,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_same_cycle_ad_sr_gate",
+      "description": "Same-cycle AD, SR, and gate writes with gate last.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 52
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 165
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6038,
+          "observation": "after_same_cycle_writes"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6039,
+          "observation": "one_cycle_after_writes"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6137,
+          "observation": "first_rate_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "after_same_cycle_writes",
+          "cycle": 6038,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 8,
+            "voices.3.envelope.rate_period": 220
+          }
+        },
+        {
+          "id": "one_cycle_after_writes",
+          "cycle": 6039,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 9,
+            "voices.3.envelope.rate_period": 149
+          }
+        },
+        {
+          "id": "first_rate_step",
+          "cycle": 6137,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 12,
+            "voices.3.envelope.rate_period": 95
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_same_cycle_gate_ad_sr",
+      "description": "Same-cycle gate, AD, and SR writes with gate first.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 19,
+          "value": 52
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 20,
+          "value": 165
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6038,
+          "observation": "after_same_cycle_writes"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 6039,
+          "observation": "one_cycle_after_writes"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 6137,
+          "observation": "first_rate_step"
+        }
+      ],
+      "observations": [
+        {
+          "id": "after_same_cycle_writes",
+          "cycle": 6038,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 8,
+            "voices.3.envelope.rate_period": 220
+          }
+        },
+        {
+          "id": "one_cycle_after_writes",
+          "cycle": 6039,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 9,
+            "voices.3.envelope.rate_period": 149
+          }
+        },
+        {
+          "id": "first_rate_step",
+          "cycle": 6137,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.level": 1,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 12,
+            "voices.3.envelope.rate_period": 95
+          }
+        }
+      ]
+    },
+    {
+      "id": "envelope_transitions",
+      "description": "Attack, decay, release, retrigger, rate rewrite, and hold-zero boundaries.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 6038,
+          "register": 19,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 6038,
+          "register": 20,
+          "value": 0
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 6038,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 6038,
+          "observation": "gate_on"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 8319,
+          "observation": "attack_fe"
+        },
+        {
+          "kind": "observe",
+          "sequence": 5,
+          "cycle": 8328,
+          "observation": "attack_ff"
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 8332,
+          "observation": "entered_decay"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 9786,
+          "observation": "decay_93"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 10489,
+          "observation": "decay_54"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 11497,
+          "observation": "decay_26"
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 12361,
+          "observation": "decay_14"
+        },
+        {
+          "kind": "observe",
+          "sequence": 11,
+          "cycle": 13513,
+          "observation": "decay_6"
+        },
+        {
+          "kind": "write",
+          "sequence": 12,
+          "cycle": 13514,
+          "register": 18,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 13,
+          "cycle": 13514,
+          "observation": "gate_off"
+        },
+        {
+          "kind": "observe",
+          "sequence": 14,
+          "cycle": 14323,
+          "observation": "release_level_3"
+        },
+        {
+          "kind": "write",
+          "sequence": 15,
+          "cycle": 14323,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 16,
+          "cycle": 14323,
+          "observation": "retrigger_from_release"
+        },
+        {
+          "kind": "observe",
+          "sequence": 17,
+          "cycle": 14343,
+          "observation": "retrigger_progress"
+        },
+        {
+          "kind": "write",
+          "sequence": 18,
+          "cycle": 14343,
+          "register": 18,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 19,
+          "cycle": 15691,
+          "observation": "release_zero"
+        },
+        {
+          "kind": "write",
+          "sequence": 20,
+          "cycle": 15691,
+          "register": 20,
+          "value": 240
+        },
+        {
+          "kind": "observe",
+          "sequence": 21,
+          "cycle": 15755,
+          "observation": "sustain_raised_while_zero"
+        },
+        {
+          "kind": "write",
+          "sequence": 22,
+          "cycle": 15755,
+          "register": 18,
+          "value": 1
+        },
+        {
+          "kind": "observe",
+          "sequence": 23,
+          "cycle": 15755,
+          "observation": "hold_zero_unlock"
+        },
+        {
+          "kind": "write",
+          "sequence": 24,
+          "cycle": 15756,
+          "register": 19,
+          "value": 240
+        },
+        {
+          "kind": "observe",
+          "sequence": 25,
+          "cycle": 15756,
+          "observation": "rate_rewrite_after_gate"
+        },
+        {
+          "kind": "write",
+          "sequence": 26,
+          "cycle": 15757,
+          "register": 20,
+          "value": 7
+        },
+        {
+          "kind": "write",
+          "sequence": 27,
+          "cycle": 15757,
+          "register": 18,
+          "value": 0
+        },
+        {
+          "kind": "observe",
+          "sequence": 28,
+          "cycle": 15757,
+          "observation": "same_cycle_sr_gate_off"
+        }
+      ],
+      "observations": [
+        {
+          "id": "gate_on",
+          "cycle": 6038,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 8,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "attack_fe",
+          "cycle": 8319,
+          "values": {
+            "public.env3": 253,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 254,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 3,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "attack_ff",
+          "cycle": 8328,
+          "values": {
+            "public.env3": 254,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 255,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 3,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "entered_decay",
+          "cycle": 8332,
+          "values": {
+            "public.env3": 255,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 255,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 7,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "decay_93",
+          "cycle": 9786,
+          "values": {
+            "public.env3": 94,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 93,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 3,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "decay_54",
+          "cycle": 10489,
+          "values": {
+            "public.env3": 55,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 2,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 54,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "decay_26",
+          "cycle": 11497,
+          "values": {
+            "public.env3": 27,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 4,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 26,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "decay_14",
+          "cycle": 12361,
+          "values": {
+            "public.env3": 15,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 8,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 14,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "decay_6",
+          "cycle": 13513,
+          "values": {
+            "public.env3": 7,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 16,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 6,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "gate_off",
+          "cycle": 13514,
+          "values": {
+            "public.env3": 6,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 6,
+            "voices.3.envelope.phase": "decay_sustain",
+            "voices.3.envelope.rate_counter": 5,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "release_level_3",
+          "cycle": 14323,
+          "values": {
+            "public.env3": 4,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 3,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "retrigger_from_release",
+          "cycle": 14323,
+          "values": {
+            "public.env3": 4,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 3,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "retrigger_progress",
+          "cycle": 14343,
+          "values": {
+            "public.env3": 5,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 5,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 6,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "release_zero",
+          "cycle": 15691,
+          "values": {
+            "public.env3": 1,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 30,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 4,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "sustain_raised_while_zero",
+          "cycle": 15755,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 5,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "hold_zero_unlock",
+          "cycle": 15755,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 5,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "rate_rewrite_after_gate",
+          "cycle": 15756,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": true,
+            "voices.3.envelope.hold_zero": true,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "release",
+            "voices.3.envelope.rate_counter": 6,
+            "voices.3.envelope.rate_period": 9
+          }
+        },
+        {
+          "id": "same_cycle_sr_gate_off",
+          "cycle": 15757,
+          "values": {
+            "public.env3": 0,
+            "voices.3.envelope.exponential_counter": 0,
+            "voices.3.envelope.exponential_period": 1,
+            "voices.3.envelope.gate": false,
+            "voices.3.envelope.hold_zero": false,
+            "voices.3.envelope.level": 0,
+            "voices.3.envelope.phase": "attack",
+            "voices.3.envelope.rate_counter": 7,
+            "voices.3.envelope.rate_period": 31251
+          }
+        }
+      ]
+    }
+  ]
+}

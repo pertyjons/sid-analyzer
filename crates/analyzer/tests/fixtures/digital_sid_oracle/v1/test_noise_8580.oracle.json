@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "source": {
+    "engine": "libresidfp",
+    "repository_url": "https://github.com/libsidplayfp/libresidfp",
+    "version": "1.1.2",
+    "release_tag": "v1.1.2",
+    "revision": "a5cd8f2486d627c40ea8c7c7a25827db73837002",
+    "source_archive_sha256": "a753d61fb0ae554a0f9224363ea57ed0c43741169edb98ec32c53b96d0412719",
+    "generator_revision": "031bf01204ac22b36b60255cf6ae085305285a4b45da17d747c78cc7abc2ca71",
+    "compiler": "GCC 16.1.1",
+    "build_flags": "libresidfp CXXFLAGS=-O2 CPPFLAGS=<empty> LDFLAGS=<empty>; generator CXXFLAGS=-std=c++23 -O2",
+    "combined_waveforms": "average"
+  },
+  "cases": [
+    {
+      "id": "combined_noise_mos8580",
+      "description": "Destructive noise writeback under combined waveforms and return to pure noise.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 18,
+          "value": 136
+        },
+        {
+          "kind": "write",
+          "sequence": 3,
+          "cycle": 1,
+          "register": 18,
+          "value": 128
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 40,
+          "observation": "pure_noise"
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 40,
+          "register": 18,
+          "value": 144
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 80,
+          "observation": "noise_triangle"
+        },
+        {
+          "kind": "write",
+          "sequence": 7,
+          "cycle": 80,
+          "register": 18,
+          "value": 160
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 120,
+          "observation": "noise_saw"
+        },
+        {
+          "kind": "write",
+          "sequence": 9,
+          "cycle": 120,
+          "register": 18,
+          "value": 192
+        },
+        {
+          "kind": "observe",
+          "sequence": 10,
+          "cycle": 160,
+          "observation": "noise_pulse"
+        },
+        {
+          "kind": "write",
+          "sequence": 11,
+          "cycle": 160,
+          "register": 18,
+          "value": 128
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 200,
+          "observation": "pure_noise_after_writeback"
+        }
+      ],
+      "observations": [
+        {
+          "id": "pure_noise",
+          "cycle": 40,
+          "values": {
+            "public.osc3": 252,
+            "voices.3.noise_poisoned": false,
+            "voices.3.shift_register": 524287
+          }
+        },
+        {
+          "id": "noise_triangle",
+          "cycle": 80,
+          "values": {
+            "public.osc3": 129,
+            "voices.3.noise_poisoned": true,
+            "voices.3.shift_register": 4194308
+          }
+        },
+        {
+          "id": "noise_saw",
+          "cycle": 120,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.noise_poisoned": true,
+            "voices.3.shift_register": 0
+          }
+        },
+        {
+          "id": "noise_pulse",
+          "cycle": 160,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.noise_poisoned": true,
+            "voices.3.shift_register": 0
+          }
+        },
+        {
+          "id": "pure_noise_after_writeback",
+          "cycle": 200,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.noise_poisoned": false,
+            "voices.3.shift_register": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "test_noise_mos8580",
+      "description": "TEST set, held, rewritten, filled, cleared, and followed by pure-noise clocks.",
+      "sid_model": "mos8580",
+      "operations": [
+        {
+          "kind": "write",
+          "sequence": 0,
+          "cycle": 0,
+          "register": 14,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 1,
+          "cycle": 0,
+          "register": 15,
+          "value": 255
+        },
+        {
+          "kind": "write",
+          "sequence": 2,
+          "cycle": 0,
+          "register": 18,
+          "value": 136
+        },
+        {
+          "kind": "observe",
+          "sequence": 3,
+          "cycle": 0,
+          "observation": "test_set"
+        },
+        {
+          "kind": "observe",
+          "sequence": 4,
+          "cycle": 10,
+          "observation": "test_held_short"
+        },
+        {
+          "kind": "write",
+          "sequence": 5,
+          "cycle": 10,
+          "register": 18,
+          "value": 136
+        },
+        {
+          "kind": "observe",
+          "sequence": 6,
+          "cycle": 10,
+          "observation": "test_rewritten"
+        },
+        {
+          "kind": "observe",
+          "sequence": 7,
+          "cycle": 985999,
+          "observation": "before_fill"
+        },
+        {
+          "kind": "observe",
+          "sequence": 8,
+          "cycle": 986000,
+          "observation": "fill_boundary"
+        },
+        {
+          "kind": "observe",
+          "sequence": 9,
+          "cycle": 986001,
+          "observation": "after_fill"
+        },
+        {
+          "kind": "write",
+          "sequence": 10,
+          "cycle": 986001,
+          "register": 18,
+          "value": 128
+        },
+        {
+          "kind": "observe",
+          "sequence": 11,
+          "cycle": 986001,
+          "observation": "test_clear"
+        },
+        {
+          "kind": "observe",
+          "sequence": 12,
+          "cycle": 986002,
+          "observation": "test_clear_pipeline_1"
+        },
+        {
+          "kind": "observe",
+          "sequence": 13,
+          "cycle": 986003,
+          "observation": "test_clear_pipeline_2"
+        },
+        {
+          "kind": "observe",
+          "sequence": 14,
+          "cycle": 986020,
+          "observation": "noise_step_0"
+        },
+        {
+          "kind": "observe",
+          "sequence": 15,
+          "cycle": 986036,
+          "observation": "noise_step_1"
+        },
+        {
+          "kind": "observe",
+          "sequence": 16,
+          "cycle": 986052,
+          "observation": "noise_step_2"
+        },
+        {
+          "kind": "observe",
+          "sequence": 17,
+          "cycle": 986068,
+          "observation": "noise_step_3"
+        },
+        {
+          "kind": "observe",
+          "sequence": 18,
+          "cycle": 986084,
+          "observation": "noise_step_4"
+        },
+        {
+          "kind": "observe",
+          "sequence": 19,
+          "cycle": 986100,
+          "observation": "noise_step_5"
+        },
+        {
+          "kind": "observe",
+          "sequence": 20,
+          "cycle": 986116,
+          "observation": "noise_step_6"
+        },
+        {
+          "kind": "observe",
+          "sequence": 21,
+          "cycle": 986132,
+          "observation": "noise_step_7"
+        },
+        {
+          "kind": "observe",
+          "sequence": 22,
+          "cycle": 1086000,
+          "observation": "noise_large_delta"
+        }
+      ],
+      "observations": [
+        {
+          "id": "test_set",
+          "cycle": 0,
+          "values": {
+            "public.osc3": 0,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 986000
+          }
+        },
+        {
+          "id": "test_held_short",
+          "cycle": 10,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 985990
+          }
+        },
+        {
+          "id": "test_rewritten",
+          "cycle": 10,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 985990
+          }
+        },
+        {
+          "id": "before_fill",
+          "cycle": 985999,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 1
+          }
+        },
+        {
+          "id": "fill_boundary",
+          "cycle": 986000,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 8388607,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "after_fill",
+          "cycle": 986001,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 8388607,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "test_clear",
+          "cycle": 986001,
+          "values": {
+            "public.osc3": 255,
+            "voices.3.accumulator": 0,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "test_clear_pipeline_1",
+          "cycle": 986002,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 65535,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "test_clear_pipeline_2",
+          "cycle": 986003,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 131070,
+            "voices.3.shift_register": 4194303,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_0",
+          "cycle": 986020,
+          "values": {
+            "public.osc3": 254,
+            "voices.3.accumulator": 1245165,
+            "voices.3.shift_register": 2097151,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_1",
+          "cycle": 986036,
+          "values": {
+            "public.osc3": 252,
+            "voices.3.accumulator": 2293725,
+            "voices.3.shift_register": 1048575,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_2",
+          "cycle": 986052,
+          "values": {
+            "public.osc3": 252,
+            "voices.3.accumulator": 3342285,
+            "voices.3.shift_register": 524287,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_3",
+          "cycle": 986068,
+          "values": {
+            "public.osc3": 252,
+            "voices.3.accumulator": 4390845,
+            "voices.3.shift_register": 262143,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_4",
+          "cycle": 986084,
+          "values": {
+            "public.osc3": 248,
+            "voices.3.accumulator": 5439405,
+            "voices.3.shift_register": 131071,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_5",
+          "cycle": 986100,
+          "values": {
+            "public.osc3": 248,
+            "voices.3.accumulator": 6487965,
+            "voices.3.shift_register": 65535,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_6",
+          "cycle": 986116,
+          "values": {
+            "public.osc3": 248,
+            "voices.3.accumulator": 7536525,
+            "voices.3.shift_register": 32767,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_step_7",
+          "cycle": 986132,
+          "values": {
+            "public.osc3": 248,
+            "voices.3.accumulator": 8585085,
+            "voices.3.shift_register": 16383,
+            "voices.3.test_fill_at": 0
+          }
+        },
+        {
+          "id": "noise_large_delta",
+          "cycle": 1086000,
+          "values": {
+            "public.osc3": 249,
+            "voices.3.accumulator": 10320225,
+            "voices.3.shift_register": 4829076,
+            "voices.3.test_fill_at": 0
+          }
+        }
+      ]
+    }
+  ]
+}
