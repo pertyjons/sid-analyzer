@@ -4162,6 +4162,7 @@ fn build_song(
             export.header.flags.sid_model,
             frame_count,
             tpr,
+            options.style,
         );
 
         patterns.push(Pattern {
@@ -4824,6 +4825,7 @@ fn build_song_structured(
             model,
             frame_count,
             tpr,
+            options.style,
         );
         if !automation.is_empty() {
             let id = next_pattern_id;
@@ -5166,6 +5168,7 @@ fn build_plan_automation(
     model: SidModel,
     frame_count: u32,
     tpr: u32,
+    style: SynthStyle,
 ) -> Vec<AutomationLane> {
     let instrument = plan.instrument_id;
     let voice_index = plan.voice_index;
@@ -5178,13 +5181,11 @@ fn build_plan_automation(
         lanes.push(lane);
     }
 
-    // An authored continuous-PWM program replaces this lane entirely: the
-    // instrument carries a `script` module regenerating the driver's sweep
-    // ([`plan_authored_pwm`] — the same gate [`build_instruments`] used), so a
-    // baked lane on top would double-modulate the register.
+    // Only faithful instruments retain the authored PWM script. Modern
+    // restyling removes it, so that style needs the measured lane instead.
     if !plan.shape.is_noise
         && plan.shape.waveform == "pulse"
-        && plan_authored_pwm(plan, states).is_none()
+        && (style == SynthStyle::ModernAnalog || plan_authored_pwm(plan, states).is_none())
         && let Some(lane) = build_param_lane(
             ModuleTarget::new(instrument, "sid_oscillator", "pw_reg"),
             &events,
@@ -8994,6 +8995,7 @@ mod tests {
             SidModel::Mos6581,
             12,
             40,
+            SynthStyle::SidFaithful,
         );
         let lane = lanes
             .iter()
@@ -10655,6 +10657,216 @@ mod tests {
     }
 
     // ---- E3 authored-PWM program replay ---------------------------------
+
+    fn pwm_export_fixture(options: SynthOptions, structured: bool) -> serde_json::Value {
+        use crate::export::{NativePlacement, PatternNumber, PatternTranspose};
+
+        let mut bytes = vec![0; 0x7c];
+        bytes[..4].copy_from_slice(b"PSID");
+        bytes[4..6].copy_from_slice(&2u16.to_be_bytes());
+        bytes[6..8].copy_from_slice(&0x7cu16.to_be_bytes());
+        bytes[14..16].copy_from_slice(&1u16.to_be_bytes());
+        bytes[16..18].copy_from_slice(&1u16.to_be_bytes());
+        let header = crate::header::parse(&bytes).unwrap();
+        let mut patch = adoption_patch(0, 0x40, PAD_ADSR, false);
+        patch.role_tags.lead = true;
+        patch.voices[0].pw_envelope.min = PulseWidth(0x800);
+        patch.voices[0].pw_envelope.max = PulseWidth(0xe00);
+        patch.authored_effects = Some(AuthoredEffects {
+            vibrato: None,
+            pwm: Some(AuthoredPwm {
+                period_frames: 2,
+                step: 0x40,
+            }),
+            pw_offset: None,
+            pw_init: Some(PulseWidth(0x800)),
+            chirp_up: false,
+            arp: false,
+        });
+        let patches = [patch];
+        let events = [
+            NoteEvent {
+                end_frame: Some(FrameIndex(64)),
+                ..ev_at(0)
+            },
+            NoteEvent {
+                end_frame: Some(FrameIndex(144)),
+                ..ev_at(80)
+            },
+        ];
+        let mut states = vec![ProgramFrame::default(); 160];
+        for (frame, state) in states.iter_mut().enumerate() {
+            state.frame = FrameIndex(frame as u32);
+            state.volume = crate::analysis::Volume(15);
+            let voice = &mut state.voices[0];
+            voice.freq = SidFreq(0x1168);
+            voice.adsr = PAD_ADSR;
+            voice.control.waveform.pulse = true;
+            voice.control.gate = frame % 80 < 64;
+            let position = ((frame % 80) / 2 * 0x40) as i32;
+            voice.pulse_width = PulseWidth((0x800 + 0x600 - (position - 0x600).abs()) as u16);
+        }
+        let structure = [VoicePlacements {
+            voice: VoiceId(1),
+            placements: [0, 80]
+                .into_iter()
+                .map(|start| NativePlacement {
+                    pattern_number: PatternNumber(0),
+                    start_frame: FrameIndex(start),
+                    transpose: PatternTranspose(0),
+                    order_offset: None,
+                    repeat_ordinal: None,
+                })
+                .collect(),
+        }];
+        let export = SynthSource {
+            header: &header,
+            timing: pal_timing(),
+            frame_count: states.len(),
+            patches: Some(&patches),
+            notes: events
+                .iter()
+                .map(|event| EnrichedNote {
+                    event,
+                    patch_id: Some(patches[0].id),
+                    characteristics: None,
+                })
+                .collect(),
+            effects: &[],
+            structure: structured.then_some(structure.as_slice()),
+            native: None,
+        };
+        let plans = build_track_plans(&export, &states);
+        assert_eq!(plans.len(), 1);
+        assert!(plan_authored_pwm(&plans[0], &states).is_some());
+        let mut bytes = Vec::new();
+        write_synth_source(&export, &states, &mut bytes, options, false).unwrap();
+        serde_json::from_slice(&bytes).unwrap()
+    }
+
+    #[test]
+    fn modern_export_retains_authored_pwm_as_automation() {
+        for structured in [false, true] {
+            let project = pwm_export_fixture(
+                SynthOptions {
+                    style: SynthStyle::ModernAnalog,
+                    ..SynthOptions::default()
+                },
+                structured,
+            );
+            let lanes: Vec<_> = project["song"]["patterns"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .flat_map(|pattern| pattern["automation"].as_array().unwrap())
+                .filter(|lane| lane["target"]["Module"]["param_id"] == "pulse_width")
+                .collect();
+            assert_eq!(
+                lanes.len(),
+                1,
+                "PWM was removed from structured={structured}"
+            );
+            assert_eq!(lanes[0]["target"]["Module"]["module_type"], "oscillator");
+            let points = lanes[0]["points"].as_array().unwrap();
+            let low = normalize_pulse_width(0x800) as f64;
+            let high = normalize_pulse_width(0xe00) as f64;
+            assert!((points[0]["value"].as_f64().unwrap() - low).abs() < 1e-6);
+            assert!(
+                points
+                    .iter()
+                    .any(|point| (point["value"].as_f64().unwrap() - high).abs() < 1e-6)
+            );
+            let ticks_per_frame = (project["song"]["default_tempo"].as_f64().unwrap() * 16.0
+                / pal_timing().calls_per_second())
+            .round() as u64;
+            for (frame, width) in [
+                (2, 0x840),
+                (48, 0xe00),
+                (50, 0xdc0),
+                (80, 0x800),
+                (82, 0x840),
+            ] {
+                let tick = frame * ticks_per_frame;
+                let index = points
+                    .iter()
+                    .rposition(|point| point["tick"].as_u64().unwrap() <= tick)
+                    .unwrap();
+                let point = &points[index];
+                let next = &points[index + 1];
+                let curve = match point["curve"].as_str() {
+                    Some("Linear") => CurveType::Linear,
+                    Some("Step") => CurveType::Step,
+                    Some("SCurve") => CurveType::SCurve,
+                    _ => {
+                        CurveType::Exponential(point["curve"]["Exponential"].as_i64().unwrap() as i8)
+                    }
+                };
+                let offset = tick - point["tick"].as_u64().unwrap();
+                let span = next["tick"].as_u64().unwrap() - point["tick"].as_u64().unwrap();
+                let value = curve.interpolate(
+                    point["value"].as_f64().unwrap() as f32,
+                    next["value"].as_f64().unwrap() as f32,
+                    offset as f32 / span as f32,
+                );
+                assert!(
+                    (value - normalize_pulse_width(width)).abs() <= AUTOMATION_EPSILON,
+                    "PWM changed at source frame {frame}: {value}"
+                );
+            }
+            let modules = project["instruments"][0]["patch"]["modules"]
+                .as_array()
+                .unwrap();
+            assert!(!modules.iter().any(|module| module["type"] == "script"));
+        }
+    }
+
+    #[test]
+    fn enhancement_preserves_authored_pwm_and_musical_data_at_every_level() {
+        for structured in [false, true] {
+            let faithful = pwm_export_fixture(SynthOptions::default(), structured);
+            let original = &faithful["instruments"][0];
+            let original_modules = original["patch"]["modules"].as_array().unwrap();
+            assert!(
+                original_modules
+                    .iter()
+                    .any(|module| module["type"] == "script")
+            );
+            assert!(
+                faithful["song"]["patterns"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .flat_map(|pattern| pattern["automation"].as_array().unwrap())
+                    .all(|lane| lane["target"]["Module"]["param_id"] != "pw_reg"),
+                "faithful PWM must not be applied through both script and automation"
+            );
+            for amount in 1..=10 {
+                let enhanced = pwm_export_fixture(
+                    SynthOptions {
+                        enhancement: Some(EnhancementAmount::new(amount).unwrap()),
+                        ..SynthOptions::default()
+                    },
+                    structured,
+                );
+                assert_eq!(enhanced["song"], faithful["song"]);
+                let instrument = &enhanced["instruments"][0];
+                assert_eq!(instrument["transpose"], original["transpose"]);
+                assert_eq!(
+                    instrument["patch"]["connections"],
+                    original["patch"]["connections"]
+                );
+                let modules = instrument["patch"]["modules"].as_array().unwrap();
+                for module in original_modules {
+                    assert_eq!(
+                        modules
+                            .iter()
+                            .find(|candidate| candidate["id"] == module["id"]),
+                        Some(module)
+                    );
+                }
+            }
+        }
+    }
 
     #[test]
     fn authored_pwm_script_regenerates_driver_staircase() {

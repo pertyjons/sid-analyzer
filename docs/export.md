@@ -109,6 +109,8 @@ load-tested live in Pertylizer. Landed and stable:
   does not fork decoding, track planning, or song construction. Pulse-width
   lanes are retargeted from `sid_oscillator.pw_reg` to
   `oscillator.pulse_width`.
+  Authored PWM scripts are replaced by measured pulse-width lanes because
+  the modern instrument graph does not retain the SID script/CV path.
 
 - **Faithful enhancement** — `--enhance <1-10>` composes with `--format synth`
   or `--format synth-native`. It retains every SID oscillator, source module,
@@ -484,6 +486,11 @@ or reverb; kicks use only a very short low-level room, while leads, arpeggios,
 pads, bells, and untagged melodic material receive progressively wider ambience.
 The implementation lives in `export/synth/enhance.rs` and is separate from the
 `ModernAnalog` resynthesis profile.
+
+Synthetic regressions cover all ten enhancement levels in flat and structured
+exports: notes, pitch, automation, source modules, PWM scripts, and source
+connections remain identical to the faithful export. Script-driven PWM is not
+also emitted as an automation lane.
 
 ```console
 sid-analyzer tune.sid --format synth-native --enhance 5 --output tune.ptz
